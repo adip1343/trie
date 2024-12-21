@@ -27,17 +27,17 @@ impl MemberType for u32 {
     }
 }
 
-struct Node<T>
+struct Node<M>
 where
-    T: MemberType,
+    M: MemberType,
 {
     child: [usize; 26],
-    member: T,
+    member: M,
 }
 
-impl<T> Node<T>
+impl<M> Node<M>
 where
-    T: MemberType,
+    M: MemberType,
 {
     fn new() -> Self {
         Self {
@@ -49,16 +49,16 @@ where
 
 // @TODO : make this private
 #[derive(Default)]
-pub struct _Trie<T>
+pub struct _Trie<M>
 where
-    T: MemberType,
+    M: MemberType,
 {
-    _node: Vec<Node<T>>,
+    _node: Vec<Node<M>>,
 }
 
-impl<T> _Trie<T>
+impl<M> _Trie<M>
 where
-    T: MemberType,
+    M: MemberType,
 {
     pub fn new() -> Self {
         Self {
