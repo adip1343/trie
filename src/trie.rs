@@ -1,7 +1,6 @@
 use std::default::Default;
 
-// @TODO : make this private
-pub trait MemberType
+trait MemberType
 where
     Self: Default + Copy + PartialEq,
 {
@@ -47,9 +46,8 @@ where
     }
 }
 
-// @TODO : make this private
 #[derive(Default)]
-pub struct _Trie<M>
+struct _Trie<M>
 where
     M: MemberType,
 {
@@ -60,13 +58,13 @@ impl<M> _Trie<M>
 where
     M: MemberType,
 {
-    pub fn new() -> Self {
+    fn new() -> Self {
         Self {
             _node: vec![Node::new()],
         }
     }
 
-    pub fn add(&mut self, s: &str) -> bool {
+    fn add(&mut self, s: &str) -> bool {
         let mut idx = 0usize;
         for c in s.chars() {
             let cidx = c as usize - 'a' as usize;
@@ -79,7 +77,7 @@ where
         self._node[idx].member.add() == Default::default()
     }
 
-    pub fn contains(&self, s: &str) -> bool {
+    fn contains(&self, s: &str) -> bool {
         let mut idx = 0usize;
         for c in s.chars() {
             let cidx = c as usize - 'a' as usize;
@@ -93,7 +91,7 @@ where
 }
 
 impl _Trie<u32> {
-    pub fn count(&self, s: &str) -> u32 {
+    fn count(&self, s: &str) -> u32 {
         let mut idx = 0usize;
         for c in s.chars() {
             let cidx = c as usize - 'a' as usize;
@@ -106,9 +104,43 @@ impl _Trie<u32> {
     }
 }
 
-pub type Trie = _Trie<bool>;
-pub type MultiTrie = _Trie<u32>;
+#[derive(Default)]
+pub struct Trie(_Trie<bool>);
 
+impl Trie {
+    pub fn new() -> Self {
+        Self(_Trie::<bool>::new())
+    }
+
+    pub fn add(&mut self, s: &str) -> bool {
+        self.0.add(s)
+    }
+
+    pub fn contains(&self, s: &str) -> bool {
+        self.0.contains(s)
+    }
+}
+
+#[derive(Default)]
+pub struct MultiTrie(_Trie<u32>);
+
+impl MultiTrie {
+    pub fn new() -> Self {
+        Self(_Trie::<u32>::new())
+    }
+
+    pub fn add(&mut self, s: &str) -> bool {
+        self.0.add(s)
+    }
+
+    pub fn contains(&self, s: &str) -> bool {
+        self.0.contains(s)
+    }
+
+    pub fn count(&self, s: &str) -> u32 {
+        self.0.count(s)
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::*;
