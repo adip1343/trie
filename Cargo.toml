@@ -5,6 +5,6 @@ edition = "2021"
 description = "Trie implementation"
 license= "GPL-2.0-or-later"
 auther = ["adip1343"]
-keywords = ["trie", "string", "string algorithm", "collection"]
+keywords = ["trie", "string", "algorithm", "collection", "data-structure"]
 
 [dependencies]
