@@ -2,5 +2,9 @@
 name = "trie"
 version = "0.1.0"
 edition = "2021"
+description = "Trie implementation"
+license= "GPL-2.0-or-later"
+auther = ["adip1343"]
+keywords = ["trie", "string", "string algorithm", "collection"]
 
 [dependencies]
