@@ -4,7 +4,7 @@ mod member;
 
 #[allow(unused_imports)]
 pub mod charset;
-use charset::CharSet;
+pub use charset::CharSet;
 
 mod internal;
 use internal::_Trie;
