@@ -1,13 +1,3 @@
-# Docs
+# Trie
 
-This is a project to test out `rustdoc`.
-
-[Here is a link!](https://www.rust-lang.org)
-
-## Example
-
-```rust
-fn foo() -> i32 {
-    1 + 1
-}
-```
+Implementing tries powerd with generic character sets. You can optimize space by providing custom mapping only for set of characters you use.

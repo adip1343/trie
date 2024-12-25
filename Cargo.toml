@@ -1,6 +1,6 @@
 [package]
 name = "trie-alg"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 description = "Trie implementation"
 license= "GPL-2.0-or-later"
