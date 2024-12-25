@@ -1,13 +1,15 @@
 
+#[macro_use]
 pub mod trie;
+
 
 #[cfg(test)]
 mod tests {
-    use crate::trie::{Trie, MultiTrie};
+    use crate::trie::*;
 
     #[test]
     fn trie_works() {
-        let mut t = Trie::new();
+        let mut t = trie!();
         t.add("abc");
         assert!(t.contains("abc"));
         assert!(!t.contains("a"));
@@ -15,7 +17,7 @@ mod tests {
 
     #[test]
     fn multi_trie_works() {
-        let mut t = MultiTrie::new();
+        let mut t = multi_trie!();
         t.add("abc");
         assert_eq!(t.count("abc"), 1);
         t.add("abc");
