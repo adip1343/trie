@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`trie-alg`"><title>lib - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../lib/index.html">lib</a></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li></ul></section></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">lib</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/lib/lib.rs.html#1-123">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="trie-alg"><a class="doc-anchor" href="#trie-alg">§</a><code>trie-alg</code></h2>
+<p>Implement a trie space optimized for character set in use</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span><span class="kw-2">mut </span>t = <span class="macro">trie!</span>();
+t.add(<span class="string">"abc"</span>);           <span class="comment">// true
+</span>t.add(<span class="string">"abc"</span>);           <span class="comment">// false
+</span>t.contains(<span class="string">"abc"</span>);      <span class="comment">// true
+</span>t.contains(<span class="string">"a"</span>);        <span class="comment">// false
+ 
+</span><span class="kw">let </span><span class="kw-2">mut </span>t = <span class="macro">multi_trie!</span>();
+t.add(<span class="string">"abc"</span>);           <span class="comment">// true
+</span>t.count(<span class="string">"abc"</span>)          <span class="comment">// 1
+</span>t.add(<span class="string">"abc"</span>);           <span class="comment">// false
+</span>t.count(<span class="string">"abc"</span>)          <span class="comment">// 2
+</span>t.contains(<span class="string">"abc"</span>)       <span class="comment">// true
+</span>t.contains(<span class="string">"a"</span>)         <span class="comment">// false
+</span>t.count(<span class="string">"a"</span>)            <span class="comment">// 0
+ 
+</span><span class="kw">struct </span>LowerCaseWithHash();
+<span class="kw">impl </span>CharSet <span class="kw">for </span>LowerCaseWithHash {
+    <span class="kw">const </span>SIZE: usize = <span class="number">27</span>;
+    <span class="kw">fn </span>map(ch: char) -&gt; usize {
+        <span class="kw">if </span>ch.is_ascii_lowercase() {
+           ch <span class="kw">as </span>usize - <span class="string">'a' </span><span class="kw">as </span>usize 
+        } <span class="kw">else </span>{
+            <span class="number">26
+        </span>}
+    }
+
+    <span class="kw">fn </span>unmap(hash: usize) -&gt; char {
+        <span class="kw">if </span>hash &lt; <span class="number">26 </span>{
+            (<span class="string">b'a'</span>+hash <span class="kw">as </span>u8) <span class="kw">as </span>char
+        }<span class="kw">else </span>{
+            <span class="string">'#'
+        </span>}
+    }
+}
+ 
+<span class="kw">let </span><span class="kw-2">mut </span>t = <span class="macro">multi_trie!</span>(LowerCaseWithHash);</code></pre></div>
+<h3 id="todo"><a class="doc-anchor" href="#todo">§</a>Todo</h3>
+<ul>
+<li><input disabled="" type="checkbox"/>
+Implement error handling for CharSet trait</li>
+<li><input disabled="" type="checkbox"/>
+Implement iterators to iterate over trie</li>
+<li><input disabled="" type="checkbox"/>
+Implement delete function to remove string from trie</li>
+<li><input disabled="" type="checkbox"/>
+Implement TrieMap to store information at the trie node</li>
+<li><input disabled="" type="checkbox"/>
+Implement function to count string with given prefix in the trie</li>
+</ul>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="trie/index.html" title="mod lib::trie">trie</a></div><div class="desc docblock-short">Provides <code>Trie</code> and <code>MultiTrie</code> implementations space optimized for set of characters in use.</div></li></ul><h2 id="macros" class="section-header">Macros<a href="#macros" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="macro" href="macro.multi_trie.html" title="macro lib::multi_trie">multi_trie</a></div><div class="desc docblock-short">Create new <code>MultiTrie</code></div></li><li><div class="item-name"><a class="macro" href="macro.trie.html" title="macro lib::trie">trie</a></div><div class="desc docblock-short">Create new <code>Trie</code></div></li></ul></section></div></main></body></html>
